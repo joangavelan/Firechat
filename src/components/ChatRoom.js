@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import Message from './Message'
+import Button from './Button'
 
-const Channel = ({ user }) => {
+const ChatRoom = ({ user, signOut }) => {
 
   const [newMessage, setNewMessage] = useState('');
   const [messages, setMessages] = useState([]);
@@ -53,6 +54,7 @@ const Channel = ({ user }) => {
 
   return (
     <React.Fragment>
+      <p>Welcome to the chat</p>
       <div>
         {messages.map(message => (
           <Message {...message} key={message.id} />
@@ -66,8 +68,9 @@ const Channel = ({ user }) => {
           placeholder="Type a new message"/>
         <button type="submit" disabled={!newMessage}>Send</button>
       </form>
+      <Button onClick={signOut}>Sing Out</Button>
     </React.Fragment>
   )
 }
 
-export default Channel
+export default ChatRoom

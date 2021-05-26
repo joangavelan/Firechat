@@ -1,0 +1,67 @@
+@import '../sass//variables';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 3rem;
+}
+
+.signIn {
+  width: 55rem;
+  padding: 5.5rem 3rem;
+  background-color: $color-white;
+  text-align: center;
+  border-radius: 4px;
+  background-color: $color-dark-blue;
+  box-shadow: 0 0 1rem #506881;
+
+  & > div {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+
+    & > h1 {
+      font-size: 3.2rem;
+      color: $color-white;
+    }
+
+    & img {
+      width: 3rem;
+      margin-right: 1rem;
+    }
+    
+  }
+
+  & > p {
+    font-size: 2rem;
+    color: $color-white;
+    margin-bottom: 4rem;
+    line-height: 1.5;
+  }
+
+  & > button {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding: 1.5rem 3rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    font-family: $main-font-stack;
+
+    & > img {
+      width: 2rem;
+      margin-right: 1rem;
+    }
+
+    & > p {
+      font-size: 1.65rem;
+    }
+  }
+
+}

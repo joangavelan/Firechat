@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import Button from './components/Button'
-import Channel from './components/Channel'
+import ChatRoom from './components/ChatRoom'
+import SignIn from './components/SignIn'
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
@@ -26,7 +26,7 @@ const App = () => {
     return unsubscribe;
   }, [])
 
-  const SignInWithGoogle = async () => {
+  const signInWithGoogle = async () => {
     //retrieve Google provider object
     const provider = new firebase.auth.GoogleAuthProvider();
     //set langauge to the default browser preference
@@ -39,7 +39,7 @@ const App = () => {
     }
   }
 
-  const SignOut = async () => {
+  const signOut = async () => {
     try {
       await firebase.auth().signOut();
     } catch (error) {
@@ -50,13 +50,8 @@ const App = () => {
   return (
     <div>
       {user 
-        ? 
-        <React.Fragment>
-          <Button onClick={SignOut}>Sing Out</Button>
-          <p>Welcome to the chat</p>
-          <Channel user={user} db={db}/>
-        </React.Fragment>
-        : <Button onClick={SignInWithGoogle}>Sign in with Google</Button>}
+        ? <ChatRoom user={user} signOut={signOut}/>
+        : <SignIn signIn={signInWithGoogle}/>}
     </div>
   )
 }
