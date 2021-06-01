@@ -1,0 +1,13 @@
+@import '../sass/variables'; 
+
+.SignOut {
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 1.2rem 2.1rem;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  letter-spacing: .5px;
+  background-color: rgba($color-blue, 0.12);
+  color: $color-blue;
+}

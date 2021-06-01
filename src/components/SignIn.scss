@@ -9,6 +9,9 @@
 }
 
 .signIn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 55rem;
   padding: 5.5rem 3rem;
   background-color: $color-white;
@@ -17,30 +20,12 @@
   background-color: $color-dark-blue;
   box-shadow: 0 0 1rem #506881;
 
-  & > div {
-    width: max-content;
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    margin-bottom: 2rem;
-
-    & > h1 {
-      font-size: 3.2rem;
-      color: $color-white;
-    }
-
-    & img {
-      width: 3rem;
-      margin-right: 1rem;
-    }
-    
-  }
-
   & > p {
     font-size: 2rem;
     color: $color-white;
+    margin-top: 2.5rem;
     margin-bottom: 4rem;
-    line-height: 1.5;
+    line-height: 1.65;
   }
 
   & > button {

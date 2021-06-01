@@ -1,0 +1,19 @@
+@import '../sass/variables';
+
+.WelcomeMessage {
+  padding: 3rem;
+  line-height: 1.75;
+  background: linear-gradient(to right, rgba($color-blue, 0.1), rgba($color-blue, 0.05));
+  border-radius: 1px;
+
+  & h2 {
+    font-size: 1.6rem;
+    font-weight: normal;
+    color: $color-blue;
+  }
+
+  & p {
+    font-size: 1.6rem;
+    color: #7394B3;
+  }
+}

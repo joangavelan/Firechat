@@ -1,75 +1,53 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import firebase from 'firebase/app'
-import Message from './Message'
-import Button from './Button'
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import Nav from './Nav'
+import ChatMessage from './ChatMessage'
+import './ChatRoom.scss'
+import WelcomeMessage from './WelcomeMessage';
 
-const ChatRoom = ({ user, signOut }) => {
+const ChatRoom = () => {
 
-  const [newMessage, setNewMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+  const messagesColl = firebase.firestore().collection('messages');
+  const query = messagesColl.orderBy('createdAt').limit(25);
 
-  const db = firebase.firestore();
+  const [messages] = useCollectionData(query, {idField: 'id'});
+  const [message, setMessage] = useState();
 
+  let bottom = useRef(null);
 
-  db.collectionGroup('testing')
-
-  const { uid, displayName, photoURL } = user;
-  
-  useEffect(() => {
-    if(db) {
-      const unsubscribe = db
-        .collection('channel')
-        .orderBy('createdAt')
-        .limit(100)
-        .onSnapshot(querySnapshot => {
-          //get all documents from collection with IDS
-          const data = querySnapshot.docs.map(doc => ({
-            ...doc.data(),
-            id: doc.id
-          }))
-          //state update
-          setMessages(data);
-        })
-
-      //detach listener
-      return unsubscribe;
-    }
-  }, [db]); 
-
-  const handleSubmit = (e) => {
+  const sendMessage = async (e) => {
     e.preventDefault();
 
-    if(db) {
-      db.collection('channel').add({
-        text: newMessage,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        uid,
-        displayName,
-        photoURL
-      })
-    }
+    const { uid, photoURL } = firebase.auth().currentUser;
 
-    setNewMessage('');
+    await messagesColl.add({
+      text: message,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      uid,
+      photoURL
+    });
+
+    setMessage('');
+
+    bottom.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   return (
-    <React.Fragment>
-      <p>Welcome to the chat</p>
-      <div>
-        {messages.map(message => (
-          <Message {...message} key={message.id} />
-        ))}
-      </div>
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type a new message"/>
-        <button type="submit" disabled={!newMessage}>Send</button>
+    <div className="ChatRoom">      
+      <Nav />
+      <WelcomeMessage />
+
+      <ul className="messages" style={{listStyle: 'none', padding: '3rem 1.5rem'}}>
+        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg}/>)}
+        <div ref={bottom}></div>
+      </ul>
+
+      <form onSubmit={(e) => sendMessage(e)}>
+        <input type="text" value={message} onChange={(e) => setMessage(e.target.value)}/>
+        <button type="submit">Send</button>
       </form>
-      <Button onClick={signOut}>Sing Out</Button>
-    </React.Fragment>
+    </div>
   )
 }
 

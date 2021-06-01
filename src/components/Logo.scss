@@ -1,0 +1,21 @@
+@import '../sass/variables';
+
+.Logo {
+  width: max-content;
+  display: flex;
+  align-items: center;
+
+  & > h1 {
+    font-size: 3.2rem;
+    color: #eee;
+  }
+
+  & img {
+    width: 3rem;
+    margin-right: 1rem;
+  }
+  
+}
+
+.Logo.sm > h1 {font-size: 2.8rem;}
+.Logo.sm > img {width: 2.3rem; margin-right: 1.2rem;}

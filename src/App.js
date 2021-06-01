@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import firebase from 'firebase/app'
-import 'firebase/auth'
 import 'firebase/firestore'
-import ChatRoom from './components/ChatRoom'
+import 'firebase/auth'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import SignIn from './components/SignIn'
+import ChatRoom from './components/ChatRoom'
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
@@ -14,44 +15,13 @@ firebase.initializeApp({
   appId: process.env_REACT_APP_APP_ID
 })
 
-const auth = firebase.auth();
-const db = firebase.firestore();
-
 const App = () => {
 
-  const [user, setUser] = useState(() => auth.currentUser);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => user ? setUser(user) : setUser(null));
-    return unsubscribe;
-  }, [])
-
-  const signInWithGoogle = async () => {
-    //retrieve Google provider object
-    const provider = new firebase.auth.GoogleAuthProvider();
-    //set langauge to the default browser preference
-    auth.useDeviceLanguage();
-    //starts sign in process
-    try {
-      await auth.signInWithPopup(provider);
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const signOut = async () => {
-    try {
-      await firebase.auth().signOut();
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const [user] = useAuthState(firebase.auth());
 
   return (
-    <div>
-      {user 
-        ? <ChatRoom user={user} signOut={signOut}/>
-        : <SignIn signIn={signInWithGoogle}/>}
+    <div className="App">
+     {user ? <ChatRoom /> : <SignIn />}
     </div>
   )
 }
