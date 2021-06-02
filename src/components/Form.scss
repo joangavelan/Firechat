@@ -1,0 +1,33 @@
+@import '../sass/variables';
+
+.Form {
+  display: flex;
+  align-items: center;
+
+  & input {
+    font-family: $main-font-stack;
+    font-size: 1.5rem;
+    width: calc(100% - 5.5rem);
+    padding: 1.5rem 2rem;
+    outline: none;
+    background: transparent;
+    border: 1.5px solid #282433;
+    border-radius: 1rem;
+    color: #AAA9B2;
+    margin-left: 1.5rem;
+
+    &::placeholder {
+      color: #AAA9B2;
+    }
+  }
+  
+  & button {
+    width: 5.5rem;
+    font-size: 1.7rem;
+    color: $color-purple;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+  }
+}

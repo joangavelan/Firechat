@@ -5,6 +5,7 @@ import Nav from './Nav'
 import ChatMessage from './ChatMessage'
 import './ChatRoom.scss'
 import WelcomeMessage from './WelcomeMessage';
+import Form from './Form';
 
 const ChatRoom = () => {
 
@@ -12,41 +13,20 @@ const ChatRoom = () => {
   const query = messagesColl.orderBy('createdAt').limit(25);
 
   const [messages] = useCollectionData(query, {idField: 'id'});
-  const [message, setMessage] = useState();
 
   let bottom = useRef(null);
-
-  const sendMessage = async (e) => {
-    e.preventDefault();
-
-    const { uid, photoURL } = firebase.auth().currentUser;
-
-    await messagesColl.add({
-      text: message,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uid,
-      photoURL
-    });
-
-    setMessage('');
-
-    bottom.current.scrollIntoView({ behavior: 'smooth' });
-  }
 
   return (
     <div className="ChatRoom">      
       <Nav />
       <WelcomeMessage />
 
-      <ul className="messages" style={{listStyle: 'none', padding: '3rem 1.5rem'}}>
+      <ul className="messages" style={{listStyle: 'none', padding: '3rem 1.5rem', height: 'auto'}}>
         {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg}/>)}
         <div ref={bottom}></div>
       </ul>
 
-      <form onSubmit={(e) => sendMessage(e)}>
-        <input type="text" value={message} onChange={(e) => setMessage(e.target.value)}/>
-        <button type="submit">Send</button>
-      </form>
+      <Form bottomRef={bottom}/>
     </div>
   )
 }
