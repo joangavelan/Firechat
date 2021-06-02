@@ -2,10 +2,10 @@ import React, { useState, useRef } from 'react'
 import firebase from 'firebase/app'
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import Nav from './Nav'
-import ChatMessage from './ChatMessage'
 import './ChatRoom.scss'
 import WelcomeMessage from './WelcomeMessage';
 import Form from './Form';
+import Messages from './Messages';
 
 const ChatRoom = () => {
 
@@ -20,12 +20,7 @@ const ChatRoom = () => {
     <div className="ChatRoom">      
       <Nav />
       <WelcomeMessage />
-
-      <ul className="messages" style={{listStyle: 'none', padding: '3rem 1.5rem', height: 'auto'}}>
-        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg}/>)}
-        <div ref={bottom}></div>
-      </ul>
-
+      <Messages messages={messages} bottomRef={bottom}/>
       <Form bottomRef={bottom}/>
     </div>
   )

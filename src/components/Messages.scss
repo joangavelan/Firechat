@@ -1,0 +1,26 @@
+@import '../sass/variables';
+
+.Messages {
+  list-style: none;
+  padding: 3rem 1.5rem;
+  min-height: calc(100% - 35rem);
+  overflow-y: scroll;
+  margin: 1rem 0;
+
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($color-gray-blue, 0.5);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: $color-gray-blue;
+  }
+}

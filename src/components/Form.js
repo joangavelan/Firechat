@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './Form.scss'
 import firebase from 'firebase/app'
 import { IoSend } from 'react-icons/io5'
@@ -26,9 +26,15 @@ const Form = ({ bottomRef }) => {
     bottomRef.current.scrollIntoView({ behavior: 'smooth' });
   }
 
+  let inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [])
+
   return (
     <form className="Form" onSubmit={(e) => sendMessage(e)}>
-      <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Write a message..."/>
+      <input ref={inputRef} type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Write a message..."/>
       <button type="submit"><IoSend /></button>
     </form>
   )
