@@ -8,4 +8,4 @@ Technologies and services used in the development process:
 - [Firebase](https://firebase.google.com/)
 - [React Router](https://reactrouter.com/)
 
-<a href="https://firechat-jg.netlify.app/"><img src="https://i.ibb.co/SmfZhqc/firechat.png" alt="firechat" border="0"></a>
+<a href="https://firechat-jg.netlify.app/"><img src="https://i.ibb.co/KW4KB8X/firechat.png" alt="firechat" border="0"></a>
